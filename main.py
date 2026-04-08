@@ -1,14 +1,13 @@
 import requests
-import time
 
-TOKEN = "8716947415:AAFz0eTvapxXcY4U-4gtpWxpEe_rodG8qSs"
-CHAT_ID = "@michalltsch"
+TOKEN = "8716947415:AAFz0eTvapxXcY4U-4gtpWxpEe_rodG8qSs
+"
 
-def send_signal():
-    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
-    text = "🚀 БОТ РАБОТАЕТ!"
-    requests.get(url, params={"chat_id": CHAT_ID, "text": text})
+# получаем данные
+url = f"https://api.telegram.org/bot{TOKEN}/getUpdates"
+data = requests.get(url).json()
 
-while True:
-    send_signal()
-    time.sleep(60)
+# берём chat id
+chat_id = data["result"][-1]["message"]["chat"]["id"]
+
+print("ТВОЙ CHAT_ID:", chat_id)
